@@ -28,7 +28,7 @@ check_docker_unit_present() {
 
 try_systemctl_start() {
 	log "Attempting to start docker daemon via systemctl. Please allow sudo"
-	sudo systemctl start dockerqw
+	sudo systemctl start docker
 
   return $?
 }
@@ -66,11 +66,12 @@ install_docker() {
 
 install_docker_compose() {
   wget -q "https://github.com/docker/compose/releases/download/1.28.2/docker-compose-$(uname -s)-$(uname -m)" -o $BIN_PATH/docker-compose
+  chmod a+x $BIN_PATH/docker-compose
 }
 
 start_installed_docker() {
 	log "Starting dockerd process. Please allow sudo"
-  sudo dockerd &
+  sudo dockerd >$LOG_PATH/dockerd.log 2>$LOG_PATH/dockerd.err.log &
 }
 
 start_docker() {

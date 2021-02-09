@@ -1,6 +1,6 @@
 #! /bin/bash
 
-source ./install_helpers.sh
+source scripts/install_helpers.sh
 
 debug() {
   [ ${DEBUG} -gt 0 ] && echo "[$(date '+%Y-%m-%d %H:%M:%S')] [DEBUG] $@" 1>&2
@@ -23,6 +23,7 @@ ensure_running_docker() {
 ensure_docker_compose() {
 	which docker-compose >$DEV_NULL 2>$DEV_NULL
 	if [ $? -ne 0 ]; then
+    debug "docker-compose is not present. Installing"
 		install_docker_compose
 	fi
 }
