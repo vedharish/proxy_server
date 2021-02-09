@@ -22,3 +22,8 @@ ensure_running_docker
 ensure_docker_compose
 
 log "docker / docker-compose setup looks good. Going ahead"
+
+pushd . >$DEV_NULL
+cd provision
+docker-compose up --build
+popd >$DEV_NULL
