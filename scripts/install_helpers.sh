@@ -72,6 +72,7 @@ install_docker_compose() {
 start_installed_docker() {
 	log "Starting dockerd process. Please allow sudo"
   sudo dockerd >$LOG_PATH/dockerd.log 2>$LOG_PATH/dockerd.err.log &
+  echo $! > $DOCKER_BINARY_PID_FILE
 }
 
 start_docker() {

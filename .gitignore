@@ -1,2 +1,3 @@
 bin/
 logs/
+local_setup/.env

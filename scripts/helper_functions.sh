@@ -27,3 +27,37 @@ ensure_docker_compose() {
 		install_docker_compose
 	fi
 }
+
+setup_env() {
+  [ -f "$SCRIPT_PATH/local_setup/.env" ] && return
+  echo NUM_WEB_LOADBALANCER_NODES=$NUM_WEB_LOADBALANCER_NODES > .env
+  echo NUM_APPLICATION_SERVERS=$NUM_APPLICATION_SERVERS >> .env
+
+  read -p "Please input your aws ACCESS_KEY_ID: " access_key_id
+  read -p "Please input your aws SECRET_ACCESS_KEY: " secret_access_key
+
+  log "Please note that these credentials will be present in local_setup/.env unencrypted" 
+
+  echo ACCESS_KEY_ID_BASE64=$(echo $access_key_id | base64) >> .env
+  echo SECRET_ACCESS_KEY_BASE64=$(echo $secret_access_key | base64) >> .env
+}
+
+print_usage() {
+  log "Usage: provision_servers.sh action"
+  log "supported actions: provision cleanup"
+}
+
+delete_folder() {
+  if [ ! -d $1 ]; then
+    return
+  fi
+  delete_count=$(find "$1" -type f | wc -l)
+  if [ $delete_count -lt 100 ]; then
+    debug "Deleting: $(find $1 -type f)"
+    find $1 -type f -delete
+  else
+    log "Not deleting more than 99 files. Something is wrong"
+    exit 1
+  fi
+  rmdir $1
+}
