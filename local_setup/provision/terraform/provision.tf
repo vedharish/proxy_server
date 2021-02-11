@@ -59,3 +59,7 @@ resource "null_resource" "provision_application_instances" {
     always_run = timestamp()
   }
 }
+
+ouput "load_balancer_ips" {
+  value = local.load_balancer_ips
+}
