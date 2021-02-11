@@ -2,5 +2,11 @@
 version: '3.7'
 services:
   provision_servers:
+    env_file: .env
+    environment:
+      - DEBUG=$DEBUG
     build:
       context: .
+    volumes:
+      - ./provision:/etc/workdir/provision
+      - ./files/scripts:/etc/workdir/scripts

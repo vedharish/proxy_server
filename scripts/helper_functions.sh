@@ -38,8 +38,10 @@ setup_env() {
 
   log "Please note that these credentials will be present in local_setup/.env unencrypted" 
 
-  echo ACCESS_KEY_ID_BASE64=$(echo $access_key_id | base64) >> .env
-  echo SECRET_ACCESS_KEY_BASE64=$(echo $secret_access_key | base64) >> .env
+  echo ACCESS_KEY_ID=$access_key_id >> .env
+  echo SECRET_ACCESS_KEY=$secret_access_key >> .env
+
+  echo DEBUG=$DEBUG >> .env
 }
 
 print_usage() {

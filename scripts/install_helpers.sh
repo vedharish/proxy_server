@@ -17,7 +17,7 @@ check_docker_unit_present() {
 
   [ "$is_systemctl_present" = "1" ] && return 1
 
-	if [ $(systemctl list-unit-files "docker.service" | wc -l) -gt 3 ]; then
+	if [ $(systemctl list-unit-files "docker.servicasde" | wc -l) -gt 3 ]; then # TODO
 		debug "docker unit found in systemctl"
     return 0
 	else

@@ -1,0 +1,17 @@
+---
+- name: Install golang
+  apt:
+    name: golang-go
+    state: present
+
+- name: Copy go server code
+  copy:
+    src: go_server.go
+    dest: /home/ubuntu/go_server.go
+    owner: ubuntu
+    group: ubuntu
+    mode: "0644"
+
+- name: Start Server
+  shell: "go run /etc/go_server.go &"
+  become: no

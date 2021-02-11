@@ -1,0 +1,19 @@
+AddKeysToAgent yes
+StrictHostKeyChecking no
+UserKnownHostsFile=/dev/null
+
+Host *
+  ServerAliveInterval 60
+  ControlMaster auto
+  ControlPath /etc/workdir/%r@%h:%p
+  ControlPersist 1800
+
+Host bastion
+  HostName SED_IP_HERE
+  User ubuntu
+  IdentityFile /etc/workdir/provision/terraform/provision_private_key
+
+Host 10.*
+  ProxyJump bastion
+  User ubuntu
+  IdentityFile /etc/workdir/provision/terraform/provision_private_key
